@@ -8,17 +8,18 @@ const Survey = mongoose.model('surveys');
 
 module.exports = app => {
     app.post('/api/surveys', requireLogin, requireCredits, (req, res) => {
-        const { title, subject, body, recipient } = req.body;
+        const { title, subject, body, recipients } = req.body;
 
         const survey = new Survey({
             title,
             subject,
             body,
-            recipient: recipients.split(',').map(email => ({ email: email.trim() })),
+            recipients: recipients.split(',').map(email => ({ email: email.trim() })),
             _user: req.user.id,
             dateSent: Date.now()
         });
 
         const mailer = new Mailer(survey, surveyTemplate(survey));
+        mailer.send();
     });
 };
