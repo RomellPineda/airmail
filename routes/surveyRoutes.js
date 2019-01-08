@@ -10,7 +10,7 @@ const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const Survey = mongoose.model('surveys');
 
 module.exports = app => {
-    app.get('/api/surveys/complete', (req, res) => {
+    app.get('/api/surveys/:surveyId/:choice', (req, res) => {
         res.send('Thanks for voting!');
     });
 
@@ -27,15 +27,19 @@ module.exports = app => {
             .compact()
             .uniqBy('email', 'surveyId')
             .each(({ surveyId, email, choice }) => {
-                Survey.updateMany({
-                    _id: surveyId,
-                    recipients: {
-                        $elemMatch: { email: email, responded: false }
+                Survey.updateMany(
+                    {
+                        _id: surveyId,
+                        recipients: {
+                            $elemMatch: { email: email, responded: false }
+                        }
+                    },
+                    {
+                        $inc: { [choice]: 1 },
+                        $set: { 'recipients.$.responded': true },
+                        lastResponded: new Date()
                     }
-                }, {
-                    $inc: { [choice]: 1 },
-                    $set: { 'recipients.$.responded': true }
-                }).exec();
+                ).exec();
             })
             .value();
 
@@ -60,7 +64,7 @@ module.exports = app => {
             await survey.save();
             req.user.credits -= 1;
             const user = await req.user.save();
-    
+
             res.send(user);
         } catch (err) {
             res.status(422).send(err);
