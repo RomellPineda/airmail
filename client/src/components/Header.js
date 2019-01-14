@@ -23,8 +23,8 @@ class Header extends Component {
     render() {
         return (
             <nav>
-                <div className="nav-wrapper">
-                    <Link to={this.props.auth ? '/surveys' : '/'} className="brand-logo">AirMail</Link>
+                <div className="nav-wrapper deep-purple darken-1">
+                    <Link to={this.props.auth ? '/surveys' : '/'} className="brand-logo"><i className="material-icons" style={{ padding: '0 0 0 15px'}}>filter_drama</i></Link>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
                         {this.renderContent()}
                     </ul>
