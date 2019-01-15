@@ -10,9 +10,6 @@ const Landing = () => {
                 <source src={Video} type="video/ogg" />
                 Your browser does not support the video tag.
             </video>
-            <div >
-                <h2 >AirMail</h2>
-            </div>
         </div>
     )
 };
