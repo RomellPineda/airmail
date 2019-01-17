@@ -33,7 +33,7 @@ module.exports = app => {
             .compact()
             .uniqBy('email', 'surveyId')
             .each(({ surveyId, email, choice }) => {
-                Survey.updateMany(
+                Survey.updateOne(
                     {
                         _id: surveyId,
                         recipients: {
