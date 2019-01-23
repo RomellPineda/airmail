@@ -17,7 +17,7 @@ module.exports = app => {
     });
 
     app.get('/api/surveys/:surveyId/:choice', (req, res) => {
-        res.send('Thanks for voting!');
+        res.send('Thanks for voting. You are awesome!');
     });
 
     app.post('/api/surveys/webhooks', (req, res) => {
@@ -33,7 +33,7 @@ module.exports = app => {
             .compact()
             .uniqBy('email', 'surveyId')
             .each(({ surveyId, email, choice }) => {
-                Survey.updateOne(
+                Survey.updateMany(
                     {
                         _id: surveyId,
                         recipients: {
