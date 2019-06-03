@@ -26,6 +26,7 @@ class Header extends Component {
                 <div className="nav-wrapper deep-purple darken-1">
                     <Link to={this.props.auth ? '/surveys' : '/'} className="brand-logo"><i className="material-icons" style={{ padding: '0 0 0 15px'}}>filter_drama</i></Link>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
+                        {/* to reference javaScript in JSX use curly braces */}
                         {this.renderContent()}
                     </ul>
                 </div>

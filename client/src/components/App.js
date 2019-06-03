@@ -27,3 +27,5 @@ class App extends Component {
 };
 
 export default connect(null, actions)(App);
+// connect(Arg1 reserved for mapStateToProps)
+// connect(null, Arg2 actions are run and assigned to App as props! Thus, line 13)
